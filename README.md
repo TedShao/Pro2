@@ -5,9 +5,13 @@
 ## To-Do List
 
 #### Part1: Queue  API
-- [ ] enqueue()
-- [ ] dequeue()
-- [ ] sometihng
+- [ ] create()
+- [ ] destroy()
+- [X] enqueue()
+- [X] dequeue()
+- [ ] delete()
+- [ ] iterate() //How the Fuck do I use the function????????? alksdalksjdlsakdj
+- [X] length()
 
 #### Part2: Thread API
 #### Part3: Semaphore API
