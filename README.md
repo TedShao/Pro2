@@ -17,3 +17,4 @@
 #### Part3: Semaphore API
 #### Part4: Preemption
 ### Resources
+- https://gist.github.com/mycodeschool/7510222 (our queue structure was heavily based on this)
