@@ -45,10 +45,22 @@ The bulk of the work is done in the yield function, where its main job is to get
 
 We were able to pass test1.c however, we ran into trouble in the test2.c file.
 
-
-
-
 #### Part3: Semaphore API
+We started implementing semaphore but weren't able to complete semaphore because we were trying to debug threadAPI not passing test2.c
+
+For the smaphore implementation, in the struct, we created variables:
+  - value : stores the count of how many threads can be entering the semaphore
+  - lock : a simple lock feature with the atomic test_and_set() to ensure no other thread can enter the critical section
+  - waiting: a queue that stores all the threads waiting to enter the semaphore
+
+In sem_create(), we allocate space for the semaphore struct, immidiately return NULL if we fail to do so. Once we successfully created it, we initialize the value with the passed in parameter, set the lock to 0, and create a queue for waiting.
+
+In sem_destroy(), we free the queue in the semaphore, and then the semaphore itself
+
+In sem_down(),
+
+In sem_up(),
+
 #### Part4: Preemption
 ### Resources
 - https://gist.github.com/mycodeschool/7510222 (our queue structure was heavily based on this)
