@@ -1,18 +1,6 @@
 # Pro2
 
-## Functions
-
-## To-Do List
-
 #### Part1: Queue  API
-- [X] create()
-- [X] destroy()
-- [X] enqueue()
-- [X] dequeue()
-- [X] delete()
-- [ ] iterate() //How the Fuck do I use the function????????? alksdalksjdlsakdj
-- [X] length()
-
 
 We were able to complete a full implementation of queue. 
 For the queue implementation, we had a structure for queue and structure for node. The queue has pointers that point to the front and end of queue and node has a ointer to point to whatever data we require to use and a pointer to the next node. 
@@ -27,14 +15,6 @@ To find the length of the queue, we walk through the queue, counting elements an
 To test the queue, we tried to enqueue and dequeue various types of objects, such as, ints, chars and structs. We tried all the functions and made sure that the ouput was expected. We tried subjecting the queue to 'wrong' elements, to make sure it does not crash or lose objects. 
 
 #### Part2: Thread API
-- [ ] tcb
-- [ ] yield()
-- [ ] create()
-- [ ] exit()
-- [ ] block()
-- [ ] unblock()
-- [ ] current()
-- [ ] start()
 
 We started the uthread library in the start function. We created global queues for running, waiting, blocked and zombie threads. We realized that we may not need the running queue, since we will only have one running thread at a time, however, it made sense in our implementation of uthread_current.
 
@@ -55,13 +35,18 @@ For the smaphore implementation, in the struct, we created variables:
 
 In sem_create(), we allocate space for the semaphore struct, immidiately return NULL if we fail to do so. Once we successfully created it, we initialize the value with the passed in parameter, set the lock to 0, and create a queue for waiting.
 
-In sem_destroy(), we free the queue in the semaphore, and then the semaphore itself
+In sem_destroy(), we free the queue in the semaphore, and then the semaphore itself.
 
-In sem_down(),
+In sem_down(), we enter a while loop with condition (test_and_set(&sem->lock) == 1) to make sure that the thread doesn't enter the critical section while another thread is running. When it's finally the thread's turn, it first acquires the lock and set the variable to 1 so that no other thread can interrupt it, then it checks if the semaphore is full. If it's full, then the thread gets added to the waiting queue and now releases the lock. Otherwise, it can enter the semaphore and increases the count by 1. AFter it's donw, it releases the lock so the next thread can access the semaphore.
 
-In sem_up(),
+In sem_up(), same as sem_down(), we enter a while loop with condition (test_and_set(&sem->lock) == 1) to make sure that the thread doesn't enter the critical section while another thread is running. When it's finally the thread's turn, it first acquires the lock, then it releases a spot in the semaphore by decrementing the count value. Next, it checks if by decrementing the count value, another thread can enter. If that's true, then we dequeue the first thread from the waiting queue, calling unblock() to let scheduler know that it can schedule the thread now
 
 #### Part4: Preemption
+
+We didn't get to this phase.
+
 ### Resources
 - https://gist.github.com/mycodeschool/7510222 (our queue structure was heavily based on this)
 - https://github.com/twcamper/c-programming/blob/master/lib/bounded-queue.c (another source for examples of queue functions)
+- http://stackoverflow.com/questions/1152246/mutual-exclusion-using-testandset-instruction (provided example on dealing with critical section)
+- https://github.com/pb376/cs4411-p5/blob/master/PortOSWin/synch.c (provided an example on how to do semaphore)
